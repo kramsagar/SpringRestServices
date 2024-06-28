@@ -56,6 +56,9 @@ pipeline {
             // Notify on failure (e.g., via email or Slack)
             echo 'Build and deployment failed!'
         }
-        
+        cleanup {
+            // Clean up workspace directory
+            cleanWs()
+        }
     }
 }
