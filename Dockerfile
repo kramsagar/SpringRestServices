@@ -1,4 +1,4 @@
-FROM maven:3.8.1-jdk-17 AS build
+FROM maven-3.8.1-openjdk-17-armv7 AS build
 
 # Set the working directory
 WORKDIR /app
