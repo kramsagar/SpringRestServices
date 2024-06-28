@@ -1,4 +1,4 @@
-FROM maven-3.8.1-openjdk-17-armv7 AS build
+FROM zisa/maven-3.8.1-openjdk-17-armv7 AS build
 
 # Set the working directory
 WORKDIR /app
