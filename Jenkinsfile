@@ -45,6 +45,14 @@ pipeline {
                 sh 'cd SpringRestServices ; mvn package'
             }
         }
+         stage('Build Docker Image') {
+            steps {
+                script {
+                        // Build Docker image
+                            sh 'cd SpringRestServices; ls -ltr; docker build -t rkayasan44/spingbootapp11:latest .'
+                }
+            }
+        }
     }
 
     post {
