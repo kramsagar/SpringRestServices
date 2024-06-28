@@ -2,12 +2,14 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = tool name: 'jdk-17' // Adjust the name according to your JDK installation in Jenkins
+        JAVA_TOOL_NAME = 'jdk17' // Adjust the name according to your JDK installation in Jenkins
+        MAVEN_TOOL_NAME = 'maven3' // Adjust the name according to your Maven installation in Jenkins
+        JAVA_HOME = tool name: "${env.JAVA_TOOL_NAME}", type: 'jdk'
         PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
     }
 
     tools {
-        maven 'maven-3.8.1' // Adjust the name according to your Maven installation in Jenkins
+        maven "${env.MAVEN_TOOL_NAME}"
     }
 
     stages {
@@ -26,21 +28,21 @@ pipeline {
         stage('Build') {
             steps {
                 // Clean and package the application using Maven
-                sh 'mvn clean package'
+                sh 'cd SpringRestServices; mvn clean package'
             }
         }
         
         stage('Test') {
             steps {
                 // Run tests
-                sh 'mvn test'
+                sh 'cd SpringRestServices;mvn test'
             }
         }
 
         stage('Package') {
             steps {
                 // Package the application
-                sh 'mvn package'
+                sh 'cd SpringRestServices;mvn package'
             }
         }
         
@@ -49,7 +51,7 @@ pipeline {
                 // Deploy the application (this step can vary depending on your deployment strategy)
                 // Example: Copy the JAR to a server
                 // sh 'scp target/*.jar user@yourserver.com:/path/to/deployment/dir'
-                sh 'mvn spring-boot:run'
+                sh 'cd SpringRestServices;mvn spring-boot:run'
             }
         }
     }
