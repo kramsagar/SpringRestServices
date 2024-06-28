@@ -1,19 +1,19 @@
 pipeline {
     agent any
 
-    environment {
+	 environment {
         JAVA_TOOL_NAME = 'jdk17' // Adjust the name according to your JDK installation in Jenkins
         MAVEN_TOOL_NAME = 'maven3' // Adjust the name according to your Maven installation in Jenkins
         JAVA_HOME = tool name: "${env.JAVA_TOOL_NAME}", type: 'jdk'
         PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
     }
 
-    tools {
+	 tools {
         maven "${env.MAVEN_TOOL_NAME}"
     }
 
     stages {
-        stage('Checkout') {
+         stage('Checkout') {
             steps {
                 // Use the GIT_TOKEN parameter for authentication
                 script {
@@ -25,7 +25,7 @@ pipeline {
             }
         }
         
-        stage('Build') {
+                stage('Build') {
             steps {
                 // Clean and package the application using Maven
                 sh 'cd SpringRestServices; mvn clean package'
@@ -35,23 +35,14 @@ pipeline {
         stage('Test') {
             steps {
                 // Run tests
-                sh 'cd SpringRestServices;mvn test'
+                sh 'cd SpringRestServices ; mvn test'
             }
         }
 
         stage('Package') {
             steps {
                 // Package the application
-                sh 'cd SpringRestServices;mvn package'
-            }
-        }
-        
-        stage('Run') {
-            steps {
-                // Deploy the application (this step can vary depending on your deployment strategy)
-                // Example: Copy the JAR to a server
-                // sh 'scp target/*.jar user@yourserver.com:/path/to/deployment/dir'
-                sh 'cd SpringRestServices;mvn spring-boot:run'
+                sh 'cd SpringRestServices ; mvn package'
             }
         }
     }
@@ -65,9 +56,6 @@ pipeline {
             // Notify on failure (e.g., via email or Slack)
             echo 'Build and deployment failed!'
         }
-        cleanup {
-            // Clean up workspace directory
-            cleanWs()
-        }
+        
     }
 }
