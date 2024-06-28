@@ -6,7 +6,7 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>my-spring-boot-api</artifactId>
+    <artifactId>SpringRestServices</artifactId>
     <packaging>jar</packaging>
     <name>Spring Boot Hello World Example</name>
     <version>1.0</version>
