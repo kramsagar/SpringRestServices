@@ -8,7 +8,10 @@ pipeline {
         MAVEN_TOOL_NAME = 'maven3' // Adjust the name according to your Maven installation in Jenkins
         JAVA_HOME = tool name: "${env.JAVA_TOOL_NAME}", type: 'jdk'
         PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+	GITHUB_CREDENTIALS = credentials('github_secrete2')
     }
+
 
 	 tools {
         maven "${env.MAVEN_TOOL_NAME}"
@@ -22,7 +25,7 @@ pipeline {
                     // Clone the repository using git with authentication
                     sh "git config --global credential.helper cache"
                     sh "git config --global credential.helper 'cache --timeout=3600'"
-                    sh "git clone https://kramsagar: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@github.com/kramsagar/SpringRestServices.git"
+                    sh "git clone https://${GITHUB_CREDENTIALS_USR}:${GITHUB_CREDENTIALS_PSW}@github.com/kramsagar/SpringRestServices.git"
                 }
             }
         }
@@ -53,8 +56,9 @@ pipeline {
                     
                         // Build Docker image
                            
-                            sh 'cd SpringRestServices; ls -ltr; docker build -t rkayasan44/spingbootapp11:latest .'
-                            sh 'docker push rkayasan44/spingbootapp11:latest'                        
+                            sh 'cd SpringRestServices; ls -ltr; docker build -t rkayasan44/spingbootapp12:latest .'
+                            sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
+                            sh 'docker push rkayasan44/spingbootapp12:latest'                        
 
                     
                 }
