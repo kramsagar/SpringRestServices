@@ -11,4 +11,20 @@ Usecase:   create springboot ms api docker image and push to docker hub
 Architecture:   github (every merge event) --> Jenkins multibranch pipeline --> Jenkins server --> Launch Azure vm (slave node) for build task -> it create springboot app instance and push image to docker hub
 
 
+**Important points:**
+
+docker run -d -p 8077:8089 rkyasan44/springbootapp12:latest
+
+1.	Allow the port number which is trying to access with docker hub host to container (8099)
+   
+a.	Enable firewall
+sudo ufw enable
+
+b.	Add 8077 port number
+sudo ufw allow 8077
+sudo ufw allow 22
+sudo ufw status
+
+2.	Go to azure vm and find out corresponding asg inbound.
+And allow 8077 port.
 
