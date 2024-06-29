@@ -24,7 +24,7 @@ public class HelloControllerTests {
     public void welcome_ok() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Hello World, Spring Boot!")));
+                .andExpect(content().string(equalTo("Ram and Team SRE group SpringBoot Api!")));
     }
 
 }
