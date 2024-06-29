@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'azure-ubuntu-agent'
+    }
 
 	 environment {
         JAVA_TOOL_NAME = 'jdk17' // Adjust the name according to your JDK installation in Jenkins
@@ -48,8 +50,13 @@ pipeline {
          stage('Build Docker Image') {
             steps {
                 script {
+                    
                         // Build Docker image
+                           
                             sh 'cd SpringRestServices; ls -ltr; docker build -t rkayasan44/spingbootapp11:latest .'
+                            sh 'docker push rkayasan44/spingbootapp11:latest'                        
+
+                    
                 }
             }
         }
